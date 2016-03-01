@@ -10,8 +10,12 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,48 +26,51 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class VehicleController {
 	
-
-	
-	@Inject 
+    @Inject 
 	VehiclesRepository vehicleRepository;
 	
-	
-	@RequestMapping("/greeting")
-			 public @ResponseBody String greeting() {
-			return "Hello";
-			}
-
-	@RequestMapping("/vehicle/price/{price}")
-	 public @ResponseBody List<Vehicles> findByPrice(Long price, Sort sort) {
+@RequestMapping(value = "/vehicles/prices/{price}/{sort}", 
+			        method = RequestMethod.GET, 
+			        produces = MediaType.APPLICATION_JSON_VALUE)
+	 public @ResponseBody List<Vehicles> findByPrice(@RequestParam(value = "price",required = false)Long price,
+			                                         @RequestParam(value = "sort",required = false)Sort sort) {
 	 List<Vehicles> v = vehicleRepository.findByPrice(price,sort);
 	 return v;
 	}
 	
 	
-	@RequestMapping("/vehicle/types")
-	 public @ResponseBody List<Vehicles> findByType(Sort sort) {
-	 List<Vehicles> v = vehicleRepository.findByType(sort);
-	 return v;
+	@RequestMapping(value = "/vehicles/types/{sort}" , 
+			        method = RequestMethod.GET, 
+			        produces = MediaType.APPLICATION_JSON_VALUE)
+	 public @ResponseBody ResponseEntity<List<Vehicles>> findByType(@RequestParam(value = "sort",required = false)Sort sort) {
+	 return new ResponseEntity<>(vehicleRepository.findByType(sort), HttpStatus.OK);
+	 
 	}
 	
 	
-	@RequestMapping("/vehicles/brands")
-	 public @ResponseBody List<Vehicles> findByBrand(Sort sort) {
-	 List<Vehicles> v = vehicleRepository.findByBrand(sort);
-	 return v;
+	@RequestMapping(value = "/vehicles/brands/{sort}", 
+			        method = RequestMethod.GET, 
+			        produces = MediaType.APPLICATION_JSON_VALUE)
+	 public @ResponseBody ResponseEntity<List<Vehicles>> findByBrand(@RequestParam(value = "sort",required = false)Sort sort) {
+            return new ResponseEntity<>(vehicleRepository.findByBrand(sort), HttpStatus.OK);
+	 
 	}
 	
-	@RequestMapping("/vehicle/engine_type")
-	 public @ResponseBody List<Vehicles> findByEngineType(Sort sort) {
-	 List<Vehicles> v = vehicleRepository.findByEngineType(sort);
-	 return v;
+	@RequestMapping(value = "/vehicles/engine_types/{sort}", 
+			        method = RequestMethod.GET, 
+			        produces = MediaType.APPLICATION_JSON_VALUE)
+	 public @ResponseBody ResponseEntity<List<Vehicles>> findByEngineType(@RequestParam(value = "sort",required = false)Sort sort) {
+	 return new ResponseEntity<>(vehicleRepository.findByEngineType(sort), HttpStatus.OK);
+	 
 	}
 	
 	
-	@RequestMapping("/vehicle/colors")
-	 public @ResponseBody List<Vehicles> findBycolor(Sort sort) {
-	 List<Vehicles> v = vehicleRepository.findByColor(sort);
-	 return v;
+	@RequestMapping(value = "/vehicles/colors/{sort}" , 
+			        method = RequestMethod.GET, 
+			        produces = MediaType.APPLICATION_JSON_VALUE)
+	 public @ResponseBody ResponseEntity<List<Vehicles>> findBycolor(@RequestParam(value = "sort",required = false)Sort sort) {
+	 return new ResponseEntity<>(vehicleRepository.findByColor(sort), HttpStatus.OK);
+	 
 	}
 	
 	

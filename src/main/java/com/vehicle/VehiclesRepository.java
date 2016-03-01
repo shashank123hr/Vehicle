@@ -9,17 +9,17 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface VehiclesRepository extends JpaRepository<Vehicles, Long> {
 	
-	@Query("select v.price as price , v.type as type from Vehicles v group by v.type order by v.price asc")
+	@Query("select avg(v.price) as price , v.type as type from Vehicles v group by v.type")
 	List<Vehicles> findByType(Sort sort);
 	
 	
-	@Query("select v.price as price , v.brand as brand from Vehicles v group by v.brand order by v.price asc")
+	@Query("select  v.brand as cbrand, avg(v.price) as cprice from Vehicles v group by v.brand")
 	List<Vehicles> findByBrand(Sort sort);
 	
-	@Query("select v.price as price , v.enginetype as enginetype from Vehicles v group by v.enginetype order by v.price asc")
+	@Query("select avg(v.price) as price , v.enginetype as enginetype from Vehicles v group by v.enginetype")
 	List<Vehicles> findByEngineType(Sort sort);
 	
-	@Query("select v.price as price , v.color as color from Vehicles v group by v.color order by v.price asc")
+	@Query("select avg(v.price) as price , v.color as color from Vehicles v group by v.color")
 	List<Vehicles> findByColor(Sort sort);
 	
 	@Query("select v.type,v.brand,v.color,v.enginetype from Vehicles v where v.price = ?1")

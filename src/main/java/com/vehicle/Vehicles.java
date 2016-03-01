@@ -26,13 +26,13 @@ public class Vehicles {
     private String enginetype;  
 	
 	@Column(name="price")
-    private String price;  
+    private Long price;  
 	
 	@Column(name="year")
     private String year;
 
 	public Vehicles(Long vin, String type, String brand, String color,
-			String enginetype, String price, String year) {
+			String enginetype, Long price, String year) {
 		super();
 		this.vin = vin;
 		this.type = type;
@@ -47,62 +47,7 @@ public class Vehicles {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Long getVin() {
-		return vin;
-	}
-
-	public void setVin(Long vin) {
-		this.vin = vin;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public String getBrand() {
-		return brand;
-	}
-
-	public void setBrand(String brand) {
-		this.brand = brand;
-	}
-
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
-	}
-
-	public String getEnginetype() {
-		return enginetype;
-	}
-
-	public void setEnginetype(String enginetype) {
-		this.enginetype = enginetype;
-	}
-
-	public String getPrice() {
-		return price;
-	}
-
-	public void setPrice(String price) {
-		this.price = price;
-	}
-
-	public String getYear() {
-		return year;
-	}
-
-	public void setYear(String year) {
-		this.year = year;
-	}
-
+	
 	@Override
 	public String toString() {
 		return "VehicleModel [vin=" + vin + ", type=" + type + ", brand="
